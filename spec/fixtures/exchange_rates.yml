@@ -1,0 +1,7 @@
+exchange_rates:
+  - downloaded_at: '2013-12-13'
+    currency: 'USD'
+    fx_rate: 1.376
+  - downloaded_at: '2013-12-13'
+    currency: 'GBP'
+    fx_rate: 0.876
