@@ -6,7 +6,7 @@ require "date"
 require "time"
 
 module FxLib
-  class ForeignExchange
+  class ExchangeRate
     def self.open_xml_file(url)
       begin
       status = Timeout::timeout(60) {
@@ -22,10 +22,10 @@ module FxLib
 
     def self.at(date,base_curr,counter_curr)
       d            = date.strftime("%Y-%m-%d")
-      ers_base     = ExchangeRate.find_by_downloaded_at_and_currency(d,base_curr)
-      ers_counter  = ExchangeRate.find_by_downloaded_at_and_currency(d,counter_curr)
-      base_rate    = ers_base.fx_rate
-      counter_rate = ers_counter.fx_rate
+      ers_base     = FxRate.find_by_downloaded_at_and_currency(d,base_curr)
+      ers_counter  = FxRate.find_by_downloaded_at_and_currency(d,counter_curr)
+      base_rate    = ers_base.rate
+      counter_rate = ers_counter.rate
       rate         = (counter_rate/base_rate).round(4)
       return rate
     end
@@ -41,7 +41,7 @@ module FxLib
           date    = (Date.today - d - 2).strftime("%Y-%m-%d")
           extract = file.xpath("//Cube[@time='#{date}']/Cube")
           extract.each do |e|
-            er = ExchangeRate.create(downloaded_at: date, currency: e.attr('currency'), fx_rate: e.attr('rate'))
+            er = FxRate.create(downloaded_at: date, currency: e.attr('currency'), rate: e.attr('rate'))
             er.save
           end
         end
