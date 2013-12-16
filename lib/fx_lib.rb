@@ -38,7 +38,7 @@ module FxLib
         file = open_xml_file(url)
         no_of_days.times do |d|
           #ToDo Account for weekends
-          date    = (Date.today - d - 2).strftime("%Y-%m-%d")
+          date    = (Date.today - d - 3).strftime("%Y-%m-%d")
           extract = file.xpath("//Cube[@time='#{date}']/Cube")
           extract.each do |e|
             er = FxRate.create(downloaded_at: date, currency: e.attr('currency'), rate: e.attr('rate'))
