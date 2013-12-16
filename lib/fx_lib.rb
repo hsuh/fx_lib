@@ -1,4 +1,5 @@
 require "fx_lib/version"
+require "active_support/dependencies"
 require "open-uri"
 require "timeout"
 require "nokogiri"
@@ -6,6 +7,13 @@ require "date"
 require "time"
 
 module FxLib
+
+  mattr_accessor :app_root
+
+  def self.setup
+    yield self
+  end
+
   class ExchangeRate
     def self.open_xml_file(url)
       begin

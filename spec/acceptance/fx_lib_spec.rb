@@ -4,6 +4,12 @@ require './lib/fx_lib.rb'
 describe 'FxLib' do
   url = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml"
 
+  it 'set up block yields self' do
+    FxLib.setup do |config|
+      assert_equal FxLib, config
+    end
+  end
+
   #Tests for fetching data
   it "should have a method ExchangeRate.fetch_data" do
     lambda do

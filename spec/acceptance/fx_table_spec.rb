@@ -7,8 +7,6 @@ describe 'Generating a fx table' do
 
   it 'should fetch the data given correct url and date' do
     FxLib::ExchangeRate.fetch_data(url, 1)
-    puts FxRate.first.inspect
-    puts FxRate.last.inspect
     expect(FxRate.where(currency: 'USD', rate: '1.3727')).not_to be_empty
   end
 end
