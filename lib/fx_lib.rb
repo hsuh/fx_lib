@@ -46,7 +46,8 @@ module FxLib
         file = open_xml_file(url)
         no_of_days.times do |d|
           #ToDo Account for weekends
-          date    = (Date.today - d - 3).strftime("%Y-%m-%d")
+          #date    = (Date.today - d - 3).strftime("%Y-%m-%d")
+          date    = (Date.today - d).strftime("%Y-%m-%d")
           extract = file.xpath("//Cube[@time='#{date}']/Cube")
           puts date.inspect
           extract.each do |e|

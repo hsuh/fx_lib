@@ -20,7 +20,7 @@ describe 'FxLib' do
   it "should have a method for ExchangeRate.at" do
     lambda do
       FxLib::ExchangeRate.fetch_data(url, 1)
-      date = DateTime.new(2013,12,13)
+      date = DateTime.new(2013,12,16)
       FxLib::ExchangeRate.at(date, 'GBP', 'USD')
     end.should_not raise_error
   end
@@ -33,8 +33,8 @@ describe 'FxLib' do
 
   it 'should calculate exchange rate' do
     FxLib::ExchangeRate.fetch_data(url, 1)
-    date = DateTime.new(2013,12,13)
+    date = DateTime.new(2013,12,16)
     rate = FxLib::ExchangeRate.at(date, 'GBP', 'USD')
-    rate.should eq(1.6270)
+    rate.should eq(1.6325)
   end
 end
