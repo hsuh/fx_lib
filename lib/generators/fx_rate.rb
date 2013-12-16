@@ -6,7 +6,7 @@ module FxRate
       include Rails::Generators::Migration
 
       def self.source_root
-        @_fx_rate_source_root ||= File.expand_path(File.dirname(__FILE__), 'fx_lib', generator_name, 'templates')
+        @_fx_rate_source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'fx_lib', generator_name, 'templates'))
       end
 
       def self.next_migration_number(path)
