@@ -40,8 +40,10 @@ module FxLib
           #ToDo Account for weekends
           date    = (Date.today - d - 3).strftime("%Y-%m-%d")
           extract = file.xpath("//Cube[@time='#{date}']/Cube")
+          puts date.inspect
           extract.each do |e|
             er = FxRate.create(downloaded_at: date, currency: e.attr('currency'), rate: e.attr('rate'))
+            puts er.inspect
             er.save
           end
         end
@@ -52,3 +54,5 @@ module FxLib
     end
   end
 end
+
+require "fx_lib/engine"
