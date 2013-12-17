@@ -1,6 +1,6 @@
 # FxLib
 
-TODO: Write a gem description
+FxLib pull foreign exchange rates from xml feed and store it in a table and provides exchange ratesconversion method
 
 ## Installation
 
@@ -10,7 +10,11 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    $ rails generate fx_lib:migration
+
+To seed the database with current fx rates from xml file please run the following rake task
+
+    $ rake FX_URL="Your url to the xml file" fx_lib:db_seed
 
 Or install it yourself as:
 
@@ -18,7 +22,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Methods:
+`FxLib::Exchange_Rate.at(Date, Base currency, Counter currency)`
+`FxLib::fetch_data_on(URL, Date)` - Fetch data for a particular date - cron jobs
+`FxLib::fetch_data(URL)` - Fetch, parse, store the feed
 
 ## Contributing
 
