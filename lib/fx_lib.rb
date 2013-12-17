@@ -38,20 +38,32 @@ module FxLib
       return rate
     end
 
-    def self.fetch_data(url, no_of_days)
+    def self.fetch_data_on(url, date)
       begin
-        if (no_of_days < 1 || no_of_days > 90)
-          raise 'Days should be within 1 and 90'
-        end
         file = open_xml_file(url)
-        no_of_days.times do |d|
-          #ToDo Account for weekends
-          #date    = (Date.today - d - 3).strftime("%Y-%m-%d")
-          date    = (Date.today - d).strftime("%Y-%m-%d")
-          extract = file.xpath("//Cube[@time='#{date}']/Cube")
-          puts date.inspect
-          extract.each do |e|
-            er = FxRate.create(downloaded_at: date, currency: e.attr('currency'), rate: e.attr('rate'))
+        d    = date.strftime("%Y-%m-%d")
+        extract = file.xpath("//Cube[@time='#{d}']/Cube")
+        extract.each do |e|
+          er = FxRate.create(downloaded_at: d, currency: e.attr('currency'), rate: e.attr('rate'))
+          er.save
+        end
+      rescue Exception => e
+        puts e.to_s
+        return e.to_s
+      end
+    end
+
+    def self.fetch_data(url)
+      begin
+        file         = open_xml_file(url)
+        time_cubes   = file.xpath("//Cube[@time]")
+        time_cubes.each do |tc|
+          cubes    = tc.xpath("./Cube")
+          cubes.each do |c|
+            date     = tc.attr('time')
+            currency = c.attr('currency')
+            rate     = c.attr('rate')
+            er       = FxRate.create(downloaded_at: date, currency: currency, rate: rate)
             puts er.inspect
             er.save
           end
