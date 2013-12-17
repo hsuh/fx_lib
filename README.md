@@ -11,6 +11,7 @@ Add this line to your application's Gemfile:
 And then execute:
 
     $ rails generate fx_lib:migration
+    $ rake db:migrate
 
 To seed the database with current fx rates from xml file please run the following rake task
 
@@ -23,9 +24,9 @@ Or install it yourself as:
 ## Usage
 
 Methods:
-`FxLib::Exchange_Rate.at(Date, Base currency, Counter currency)`
-`FxLib::fetch_data_on(URL, Date)` - Fetch data for a particular date - cron jobs
-`FxLib::fetch_data(URL)` - Fetch, parse, store the feed
+1. `FxLib::Exchange_Rate.at(Date, Base currency, Counter currency)`
+2. `FxLib::fetch_data_on(URL, Date)` - Fetch data for a particular date - cron jobs
+3. `FxLib::fetch_data(URL)` - Fetch, parse, store the feed
 
 ## Contributing
 
